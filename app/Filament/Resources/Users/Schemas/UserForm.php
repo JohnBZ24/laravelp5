@@ -25,9 +25,14 @@ class UserForm
                     ->required(),
                 TextInput::make('role')
                     ->required()
-                    ->default('employee'),
+                    ->default('employee')
+                    ->disabled(fn () => auth()->user()?->isManager() ?? false)
+                    ->visible(fn () => ! auth()->user()?->isManager()),
                 Select::make('company_id')
-                    ->relationship('company', 'name'),
+                    ->relationship('company', 'name')
+                    ->default(fn () => auth()->user()?->isManager() ? auth()->user()->company_id : null)
+                    ->disabled(fn () => auth()->user()?->isManager() ?? false)
+                    ->required(),
             ]);
     }
 }

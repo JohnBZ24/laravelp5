@@ -17,8 +17,6 @@ class CompanyForm
                 TextInput::make('city'),
                 TextInput::make('phone')
                     ->tel(),
-                TextInput::make('created_by')
-                    ->numeric(),
             ]);
     }
 }
